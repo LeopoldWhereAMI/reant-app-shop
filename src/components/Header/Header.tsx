@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { ShoppingCart, User } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
+import { UserMenu } from "../auth/UserMenu";
 
 export default function Header() {
   return (
@@ -43,13 +44,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link
-            href="/login"
-            aria-label="Войти"
-            className="inline-flex size-5 items-center justify-center rounded-lg text-sm font-medium transition-all outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-          >
-            <User />
-          </Link>
+          <UserMenu />
 
           <Link
             href="/cart"
