@@ -1,4 +1,4 @@
-import { ToolCard } from "@/components/Catalog/ToolCard";
+import CatalogList from "@/components/Catalog/CatalogList";
 import { getInventory } from "@/lib/api/inventory";
 
 export default async function CatalogPage() {
@@ -13,11 +13,7 @@ export default async function CatalogPage() {
         </p>
       </div>
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {inventory.map((item) => (
-          <ToolCard key={item.id} item={item} />
-        ))}
-      </div>
+      <CatalogList items={inventory} />
     </main>
   );
 }

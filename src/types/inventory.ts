@@ -9,5 +9,7 @@ export type InventoryItem = {
   daily_price: number;
   status: Status;
   serial_number: string;
+  total_work_days: number;
+  purchase_price: number;
   image_url?: string | null;
 };
