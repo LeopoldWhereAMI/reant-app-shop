@@ -1,15 +1,16 @@
 import { InventoryItem } from "@/types/inventory";
-import prisma from "../prisma";
 
-const API_URL = process.env.RENT_APP_API_URL;
+function getApiUrl(): string {
+  const url = process.env.RENT_APP_API_URL;
+  if (!url) throw new Error("RENT_APP_API_URL не задан");
+  return url;
+}
 
 export async function getInventory(): Promise<InventoryItem[]> {
-  if (!API_URL) {
-    throw new Error("RENT_APP_API_URL не задан");
-  }
+  const apiUrl = getApiUrl();
 
   try {
-    const response = await fetch(`${API_URL}/api/public/inventory`, {
+    const response = await fetch(`${apiUrl}/api/public/inventory`, {
       next: {
         revalidate: 60,
       },
@@ -30,21 +31,19 @@ export async function getInventory(): Promise<InventoryItem[]> {
     return data.map((item) => ({
       ...item,
       image_url: item.image_url
-        ? new URL(item.image_url, API_URL).toString()
+        ? new URL(item.image_url, apiUrl).toString()
         : null,
     }));
   } catch (error) {
     console.error("[API] Ошибка загрузки инвентаря:", error);
 
-    throw new Error("Не удалось загрузить список инструментов");
+    throw new Error("Не удалось загрузить список инструментов", {
+      cause: error,
+    });
   }
 }
 
 export async function getInventoryItem(id: string) {
-  if (!API_URL) {
-    throw new Error("RENT_APP_API_URL не задан");
-  }
-
   const all = await getInventory();
   return all.find((item) => item.id === id) ?? null;
 }
