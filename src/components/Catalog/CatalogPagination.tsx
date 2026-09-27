@@ -45,6 +45,7 @@ export default function CatalogPagination({
             size="icon"
             onClick={onNext}
             disabled={currentPage >= totalPages}
+            aria-label="Следующая страница"
           >
             <ChevronRight className="h-4 w-4" />
           </Button>

@@ -5,7 +5,9 @@ export default defineConfig({
   plugins: [tsconfigPaths()],
 
   test: {
-    environment: "node",
+    environment: "jsdom",
+
+    setupFiles: ["./src/tests/setup.ts"],
 
     env: {
       RENT_APP_API_URL: "https://example.com",

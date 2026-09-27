@@ -1,6 +1,3 @@
-// @vitest-environment jsdom
-
-import "@testing-library/jest-dom/vitest";
 import { screen, render, cleanup } from "@testing-library/react";
 import { InventoryItem } from "@/types/inventory";
 import { afterEach, describe, expect, it } from "vitest";
