@@ -29,9 +29,10 @@ export function ToolCard({ item }: ToolCardProps) {
           <div className="flex items-start justify-between gap-4">
             <h2 className="font-semibold">{item.name}</h2>
             <span
+              role="status"
               className={
                 isAvailable
-                  ? "shrink-0 text-sm text-green-600"
+                  ? "shrink-0 text-sm text-green-700"
                   : "shrink-0 text-sm text-muted-foreground"
               }
             >
@@ -44,7 +45,6 @@ export function ToolCard({ item }: ToolCardProps) {
               : "Электроинструмент"}
           </p>
           <p className="mt-4 text-lg font-semibold">
-            {" "}
             {item.daily_price} ₽
             <span className="ml-1 text-sm font-normal text-muted-foreground">
               / день
