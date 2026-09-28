@@ -1,27 +1,9 @@
 import CatalogList from "@/components/Catalog/CatalogList";
+import { createInventoryItem } from "@/tests/helpers/inventory";
 import { InventoryItem } from "@/types/inventory";
-import { screen, render, cleanup } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { afterEach, describe, expect, it } from "vitest";
-
-afterEach(() => {
-  cleanup();
-});
-
-const createInventoryItem = (
-  overrides: Partial<InventoryItem> = {},
-): InventoryItem => ({
-  id: "1",
-  name: "Бензопила",
-  category: "gas_tools",
-  daily_price: 1000,
-  status: "available",
-  serial_number: "SN-001",
-  total_work_days: 0,
-  purchase_price: 0,
-  image_url: null,
-  ...overrides,
-});
+import { describe, expect, it } from "vitest";
 
 const createItems = (count: number): InventoryItem[] =>
   Array.from({ length: count }, (_, index) =>

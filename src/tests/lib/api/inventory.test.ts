@@ -1,4 +1,5 @@
 import { getInventory, getInventoryItem } from "@/lib/api/inventory";
+import { createInventoryItem } from "@/tests/helpers/inventory";
 import { InventoryItem } from "@/types/inventory";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -7,21 +8,6 @@ const mockFetch = vi.fn();
 beforeEach(() => {
   vi.stubGlobal("fetch", mockFetch);
   mockFetch.mockReset();
-});
-
-const createInventoryItem = (
-  overrides: Partial<InventoryItem> = {},
-): InventoryItem => ({
-  id: "1",
-  name: "Бензопила",
-  category: "gas_tools",
-  daily_price: 1000,
-  status: "available",
-  serial_number: "SN-001",
-  total_work_days: 0,
-  purchase_price: 0,
-  image_url: null,
-  ...overrides,
 });
 
 const mockInventoryResponse = (data: InventoryItem[]) => {
