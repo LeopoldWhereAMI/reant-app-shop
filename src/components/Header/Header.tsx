@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { UserMenu } from "../auth/UserMenu";
+import CartBadge from "../Cart/CartBadge";
 
 export default function Header() {
   return (
@@ -49,9 +50,11 @@ export default function Header() {
           <Link
             href="/cart"
             aria-label="Корзина"
-            className="inline-flex size-5 items-center justify-center rounded-lg text-sm font-medium transition-all outline-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+            title="Корзина"
+            className="relative inline-flex size-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
-            <ShoppingCart />
+            <ShoppingCart className="size-5" />
+            <CartBadge />
           </Link>
         </div>
       </div>

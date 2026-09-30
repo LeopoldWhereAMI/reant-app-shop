@@ -1,8 +1,9 @@
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import prisma from "./prisma";
+
 import { Resend } from "resend";
 import VerifyEmail from "@/emails/VerifyEmail";
+import prisma from "../db/prisma";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 

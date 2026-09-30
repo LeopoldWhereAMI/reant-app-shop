@@ -1,14 +1,42 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { InventoryItem } from "@/types/inventory";
+import { Button } from "@/components/ui/button";
+import useCartStore from "@/lib/cart/cart-store";
+import { useCartHydration } from "@/lib/cart/useCartHydration";
 
 type ToolCardProps = { item: InventoryItem };
 
 export function ToolCard({ item }: ToolCardProps) {
+  const addToCart = useCartStore((state) => state.addToCart);
+  const removeItem = useCartStore((state) => state.removeItem);
+  const cart = useCartStore((state) => state.cart);
+  const hydrated = useCartHydration();
+
+  const isInCart = hydrated && cart.some((i) => i.id === item.id);
+
   const isAvailable = item.status === "available";
 
+  const handleClick = () => {
+    if (!isInCart) {
+      const cartItem = {
+        id: item.id,
+        name: item.name,
+        daily_price: item.daily_price,
+        image_url: item.image_url,
+        rentDays: 1,
+      };
+
+      addToCart(cartItem);
+    } else {
+      removeItem(item.id);
+    }
+  };
+
   return (
-    <article className="overflow-hidden rounded-xl border bg-card">
+    <article className="overflow-hidden rounded-xl border bg-card flex flex-col justify-between">
       <Link href={`/catalog/${item.id}`} className="block">
         <div className="relative aspect-4/3 bg-muted">
           {item.image_url ? (
@@ -16,6 +44,7 @@ export function ToolCard({ item }: ToolCardProps) {
               src={item.image_url}
               alt={item.name}
               fill
+              loading="eager"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
               className="object-cover"
             />
@@ -52,6 +81,24 @@ export function ToolCard({ item }: ToolCardProps) {
           </p>
         </div>
       </Link>
+      <div className="p-4">
+        {!hydrated ? (
+          <div
+            className="h-8 w-full animate-pulse rounded-md bg-muted"
+            aria-hidden
+          />
+        ) : (
+          <Button
+            size="sm"
+            variant={isInCart ? "destructive" : "default"}
+            disabled={!isAvailable}
+            onClick={handleClick}
+            className="w-full"
+          >
+            {isInCart ? "Удалить" : "В корзину"}
+          </Button>
+        )}
+      </div>
     </article>
   );
 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { authClient } from "@/lib/aiuth/auth-client";
 
 export function UserMenu() {
   const router = useRouter();
