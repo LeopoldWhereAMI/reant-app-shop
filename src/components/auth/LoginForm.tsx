@@ -6,9 +6,10 @@ import { Button } from "../ui/button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormData, loginSchema } from "./schemas/login-schema";
-import { authClient } from "@/lib/auth-client";
+
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { authClient } from "@/lib/aiuth/auth-client";
 
 export default function LoginForm() {
   const router = useRouter();

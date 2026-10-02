@@ -8,6 +8,13 @@ datasource db {
   provider = "postgresql"
 }
 
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
 model User {
   id            String    @id
   name          String
@@ -17,11 +24,43 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   phoneNumber   String
+
   sessions      Session[]
   accounts      Account[]
+  orders        Order[]
 
   @@unique([email])
   @@map("user")
+}
+
+model Order {
+  id         String      @id @default(cuid())
+  userId     String
+  status     OrderStatus @default(PENDING)
+  totalPrice Int
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  user  User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  items OrderItem[]
+
+  @@index([userId])
+}
+
+model OrderItem {
+  id          String @id @default(cuid())
+  orderId     String
+  inventoryId String
+
+  name       String
+  dailyPrice Int
+  rentDays   Int
+  totalPrice Int
+
+  order Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@index([orderId])
+  @@index([inventoryId])
 }
 
 model Session {

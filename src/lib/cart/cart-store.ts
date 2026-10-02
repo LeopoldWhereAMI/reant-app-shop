@@ -7,6 +7,7 @@ type CartStore = {
 
   addToCart: (item: CartItemType) => void;
   removeItem: (id: string) => void;
+  clearCart: () => void;
 
   increaseRentDays: (id: string) => void;
   decreaseRentDays: (id: string) => void;
@@ -26,6 +27,12 @@ const useCartStore = create<CartStore>()(
       removeItem: (id) => {
         set((state) => {
           return { cart: state.cart.filter((i) => i.id !== id) };
+        });
+      },
+
+      clearCart: () => {
+        set((state) => {
+          return { cart: [] };
         });
       },
 
