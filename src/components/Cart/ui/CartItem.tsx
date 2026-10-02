@@ -1,10 +1,10 @@
 "use client";
 
-import { CartItemType } from "@/lib/cart/cart-types";
-
+import type { CartItemType } from "@/lib/cart/cart-types";
 import useCartStore from "@/lib/cart/cart-store";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { formatDays } from "@/lib/formatters/days";
 
 type Props = {
   item: CartItemType;
@@ -16,7 +16,7 @@ export default function CartItem({ item }: Props) {
   const decreaseRentDays = useCartStore((state) => state.decreaseRentDays);
 
   const rentDays = item.rentDays;
-  const fullPrice = item.daily_price * rentDays;
+  const rentalPrice = item.daily_price * rentDays;
 
   return (
     <li>
@@ -53,7 +53,7 @@ export default function CartItem({ item }: Props) {
             </Button>
 
             <span className="flex h-8 min-w-16 items-center justify-center border-x px-2 text-sm">
-              {rentDays} {rentDays === 1 ? "день" : "дня"}
+              {rentDays} {formatDays(rentDays)}
             </span>
 
             <Button
@@ -76,7 +76,7 @@ export default function CartItem({ item }: Props) {
             Удалить
           </Button>
 
-          <span className="font-medium">{fullPrice} ₽ </span>
+          <span className="font-medium">{rentalPrice} ₽ </span>
         </div>
       </div>
     </li>
