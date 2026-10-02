@@ -9,7 +9,7 @@ import { LoginFormData, loginSchema } from "./schemas/login-schema";
 
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { authClient } from "@/lib/aiuth/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 export default function LoginForm() {
   const router = useRouter();

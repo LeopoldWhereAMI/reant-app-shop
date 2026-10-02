@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
 import { UserMenu } from "../auth/UserMenu";
-import CartBadge from "../Cart/CartBadge";
+import CartBadge from "../Cart/ui/CartBadge";
 
 export default function Header() {
   return (

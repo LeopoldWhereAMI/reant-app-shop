@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/aiuth/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 export function UserMenu() {
   const router = useRouter();

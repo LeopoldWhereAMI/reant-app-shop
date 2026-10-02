@@ -1,4 +1,4 @@
-import CartList from "@/components/Cart/CartList";
+import CartList from "@/components/Cart/ui/CartList";
 
 export default function CartPage() {
   return (

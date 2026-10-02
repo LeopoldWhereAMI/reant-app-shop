@@ -10,7 +10,7 @@ import { Checkbox } from "../ui/checkbox";
 import { FormField } from "../forms/FormField";
 
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/aiuth/auth-client";
+import { authClient } from "@/lib/auth/auth-client";
 
 export default function RegisterForm() {
   const router = useRouter();

@@ -1,14 +1,11 @@
 "use client";
 
 import { CartItemType } from "@/lib/cart/cart-types";
-import { Button } from "../ui/button";
-import { createOrder } from "@/actions/order";
-import { useState } from "react";
 import RentConfirmModal from "./RentConfirmModal";
-import useCartConfirmModal from "./useCartConfirmModal";
-import useCartStore from "@/lib/cart/cart-store";
-import { authClient } from "@/lib/aiuth/auth-client";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import useCartConfirmModal from "../hooks/useCartConfirmModal";
+import useCartAuth from "../hooks/useCartAuth";
+import useCartOrder from "../hooks/useCartOrder";
 
 type Props = {
   items: CartItemType[];
@@ -16,55 +13,25 @@ type Props = {
 };
 
 export default function CartSummary({ items, setOrderCreated }: Props) {
-  const router = useRouter();
-  const { data: session, isPending } = authClient.useSession();
-
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
+  const { isAuthLoading, requireAuth } = useCartAuth();
   const { dialogRef, handleOpen, handleClose } = useCartConfirmModal();
-  const clearCart = useCartStore((state) => state.clearCart);
+
+  const onSuccess = () => {
+    setOrderCreated(true);
+    handleClose();
+  };
+  const { loading, error, submitOrder } = useCartOrder(items, onSuccess);
 
   const itemNames = items.map(({ name }) => name);
-  const dayPrice = items.reduce((acc, item) => acc + item.daily_price, 0);
+  const dailyTotal = items.reduce((acc, item) => acc + item.daily_price, 0);
   const totalPrice = items.reduce(
     (acc, item) => acc + item.daily_price * item.rentDays,
     0,
   );
 
   const handleOpenClick = () => {
-    if (isPending) return;
-    if (!session?.user) {
-      router.push(`/login?next=${encodeURIComponent("/cart")}`);
-      return;
-    }
-
+    if (!requireAuth()) return;
     handleOpen();
-  };
-
-  const handleSubmit = async () => {
-    setLoading(true);
-    setError(null);
-
-    try {
-      const payload = items.map((item) => ({
-        id: item.id,
-        rentDays: item.rentDays,
-      }));
-
-      await createOrder(payload);
-
-      clearCart();
-      setOrderCreated(true);
-      handleClose();
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "Не удалось создать заказ",
-      );
-      console.error("Ошибка создания заказа:", error);
-    } finally {
-      setLoading(false);
-    }
   };
 
   return (
@@ -79,7 +46,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
 
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">За 1 день</span>
-          <span className="font-medium">{dayPrice} ₽</span>
+          <span className="font-medium">{dailyTotal} ₽</span>
         </div>
       </div>
 
@@ -95,7 +62,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
       <Button
         className="mt-6 w-full"
         onClick={handleOpenClick}
-        disabled={isPending || loading || items.length === 0}
+        disabled={isAuthLoading || loading || items.length === 0}
       >
         {loading ? "Оформление заказа..." : "Оформить аренду"}
       </Button>
@@ -109,7 +76,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
         rentItemPrice={totalPrice}
         dialogRef={dialogRef}
         handleClose={handleClose}
-        handleSubmit={handleSubmit}
+        handleSubmit={submitOrder}
         loading={loading}
         error={error}
       />
