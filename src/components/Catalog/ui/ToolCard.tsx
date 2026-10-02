@@ -1,39 +1,16 @@
-"use client";
-
-import Image from "next/image";
-import Link from "next/link";
 import type { InventoryItem } from "@/types/inventory";
-import { Button } from "@/components/ui/button";
-import useCartStore from "@/lib/cart/cart-store";
-import { useCartHydration } from "@/lib/cart/useCartHydration";
+import AddToCartButton from "./AddToCartButton";
+import Link from "next/link";
+import Image from "next/image";
 
 type ToolCardProps = { item: InventoryItem };
 
 export function ToolCard({ item }: ToolCardProps) {
-  const addToCart = useCartStore((state) => state.addToCart);
-  const removeItem = useCartStore((state) => state.removeItem);
-  const cart = useCartStore((state) => state.cart);
-  const hydrated = useCartHydration();
-
-  const isInCart = hydrated && cart.some((i) => i.id === item.id);
-
   const isAvailable = item.status === "available";
 
-  const handleClick = () => {
-    if (!isInCart) {
-      const cartItem = {
-        id: item.id,
-        name: item.name,
-        daily_price: item.daily_price,
-        image_url: item.image_url,
-        rentDays: 1,
-      };
-
-      addToCart(cartItem);
-    } else {
-      removeItem(item.id);
-    }
-  };
+  const statusClass = isAvailable
+    ? "shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
+    : "shrink-0 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive";
 
   return (
     <article className="flex h-full min-w-0 flex-col overflow-hidden rounded-xl border bg-card">
@@ -58,13 +35,7 @@ export function ToolCard({ item }: ToolCardProps) {
       <div className="flex flex-1 flex-col p-4">
         <div className="flex items-start justify-between gap-4">
           <h2 className="line-clamp-2 min-h-10 font-semibold">{item.name}</h2>
-          <span
-            className={
-              isAvailable
-                ? "shrink-0 rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground"
-                : "shrink-0 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive"
-            }
-          >
+          <span className={statusClass}>
             {isAvailable ? "Доступен" : "Недоступен"}
           </span>
         </div>
@@ -84,22 +55,7 @@ export function ToolCard({ item }: ToolCardProps) {
       </div>
 
       <div className="p-4 pt-0">
-        {!hydrated ? (
-          <div
-            className="h-9 w-full animate-pulse rounded-md bg-muted"
-            aria-hidden
-          />
-        ) : (
-          <Button
-            size="sm"
-            variant={isInCart ? "destructive" : "default"}
-            disabled={!isAvailable}
-            onClick={handleClick}
-            className="w-full"
-          >
-            {isInCart ? "Удалить" : "В корзину"}
-          </Button>
-        )}
+        <AddToCartButton item={item} disabled={!isAvailable} />
       </div>
     </article>
   );

@@ -1,4 +1,4 @@
-import CatalogPagination from "@/components/Catalog/CatalogPagination";
+import CatalogPagination from "@/components/Catalog/ui/CatalogPagination";
 import { screen, render, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";

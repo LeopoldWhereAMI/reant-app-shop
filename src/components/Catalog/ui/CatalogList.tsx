@@ -3,7 +3,7 @@
 import { InventoryItem } from "@/types/inventory";
 import { ToolCard } from "./ToolCard";
 import CatalogPagination from "./CatalogPagination";
-import usePagination from "./hooks/usePagination";
+import usePagination from "../hooks/usePagination";
 
 type Props = {
   items: InventoryItem[];

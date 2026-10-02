@@ -1,6 +1,6 @@
 import { screen, render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { ToolCard } from "@/components/Catalog/ToolCard";
+import { ToolCard } from "@/components/Catalog/ui/ToolCard";
 import { createInventoryItem } from "@/tests/helpers/inventory";
 
 describe("ToolCard", () => {

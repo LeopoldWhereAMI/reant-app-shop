@@ -1,4 +1,4 @@
-import CatalogList from "@/components/Catalog/CatalogList";
+import CatalogList from "@/components/Catalog/ui/CatalogList";
 import { createInventoryItem } from "@/tests/helpers/inventory";
 import { InventoryItem } from "@/types/inventory";
 import { screen, render } from "@testing-library/react";

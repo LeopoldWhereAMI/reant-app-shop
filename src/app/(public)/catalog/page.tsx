@@ -1,4 +1,4 @@
-import CatalogList from "@/components/Catalog/CatalogList";
+import CatalogList from "@/components/Catalog/ui/CatalogList";
 import { getInventory } from "@/lib/api/inventory";
 
 export default async function CatalogPage() {
