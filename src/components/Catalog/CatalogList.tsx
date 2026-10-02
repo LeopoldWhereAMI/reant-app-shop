@@ -1,30 +1,17 @@
 "use client";
 
 import { InventoryItem } from "@/types/inventory";
-import { useState } from "react";
 import { ToolCard } from "./ToolCard";
 import CatalogPagination from "./CatalogPagination";
-
-const PAGE_SIZE = 8;
+import usePagination from "./hooks/usePagination";
 
 type Props = {
   items: InventoryItem[];
 };
 
 export default function CatalogList({ items }: Props) {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const totalPages = Math.ceil(items.length / PAGE_SIZE);
-  const start = (currentPage - 1) * PAGE_SIZE;
-  const currentItems = items.slice(start, start + PAGE_SIZE);
-
-  const onPrev = () => {
-    setCurrentPage((prevPage) => Math.max(1, prevPage - 1));
-  };
-
-  const onNext = () => {
-    setCurrentPage((prevPage) => Math.min(totalPages, prevPage + 1));
-  };
+  const { currentItems, currentPage, totalPages, onNext, onPrev } =
+    usePagination(items);
 
   return (
     <>
