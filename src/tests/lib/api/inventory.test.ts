@@ -17,6 +17,20 @@ const mockInventoryResponse = (data: InventoryItem[]) => {
   });
 };
 
+const mockInventoryItemResponse = (data: InventoryItem) => {
+  mockFetch.mockResolvedValue({
+    ok: true,
+    json: async () => ({ data }),
+  });
+};
+
+const mockRejectedResponse = () => {
+  mockFetch.mockResolvedValue({
+    ok: false,
+    status: 404,
+  });
+};
+
 describe("getInventory", () => {
   it("выбрасывает ошибку, если RENT_APP_API_URL не задан", async () => {
     try {
@@ -113,18 +127,18 @@ describe("getInventoryItem", () => {
       serial_number: "SN-002",
     });
 
-    mockInventoryResponse([createInventoryItem(), expectedItem]);
+    mockInventoryItemResponse(expectedItem);
 
     const result = await getInventoryItem("2");
 
     expect(result).toEqual(expectedItem);
   });
 
-  it("возвращает null, если инструмент не найден", async () => {
-    mockInventoryResponse([createInventoryItem()]);
+  it("выбрасывает ошибку, если инструмент не найден", async () => {
+    mockRejectedResponse();
 
-    const result = await getInventoryItem("999");
-
-    expect(result).toBeNull();
+    await expect(getInventoryItem("999")).rejects.toThrow(
+      "Не удалось загрузить инструмент",
+    );
   });
 });

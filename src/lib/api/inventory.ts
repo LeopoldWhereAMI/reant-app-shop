@@ -42,7 +42,7 @@ export async function getInventory(): Promise<InventoryItem[]> {
   }
 }
 
-export async function getInventoryItem(id: string) {
+export async function getInventoryItem(id: string): Promise<InventoryItem> {
   const apiUrl = getApiUrl();
 
   try {

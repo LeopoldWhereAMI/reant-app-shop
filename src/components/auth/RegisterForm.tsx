@@ -8,7 +8,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterFormData, registerSchema } from "./schemas/register-schema";
 import { Checkbox } from "../ui/checkbox";
 import { FormField } from "../forms/FormField";
-
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/auth-client";
 

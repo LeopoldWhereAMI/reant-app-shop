@@ -17,7 +17,7 @@ const { mockCatalogList } = vi.hoisted(() => ({
   mockCatalogList: vi.fn(),
 }));
 
-vi.mock("@/components/Catalog/CatalogList", () => ({
+vi.mock("@/components/Catalog/ui/CatalogList", () => ({
   default: mockCatalogList,
 }));
 
