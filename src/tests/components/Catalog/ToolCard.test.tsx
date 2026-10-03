@@ -1,7 +1,7 @@
 import { screen, render } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { ToolCard } from "@/components/Catalog/ui/ToolCard";
-import { createInventoryItem } from "@/tests/helpers/inventory";
+import { createInventoryItem } from "@/tests/components/Catalog/helpers/inventory";
 
 describe("ToolCard", () => {
   it("рендерит название инструмента", () => {

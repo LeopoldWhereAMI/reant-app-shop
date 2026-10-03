@@ -1,5 +1,5 @@
 import { getInventory, getInventoryItem } from "@/lib/api/inventory";
-import { createInventoryItem } from "@/tests/helpers/inventory";
+import { createInventoryItem } from "@/tests/components/Catalog/helpers/inventory";
 import { InventoryItem } from "@/types/inventory";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 

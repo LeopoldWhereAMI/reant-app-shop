@@ -1,5 +1,5 @@
 import CatalogList from "@/components/Catalog/ui/CatalogList";
-import { createInventoryItem } from "@/tests/helpers/inventory";
+import { createInventoryItem } from "@/tests/components/Catalog/helpers/inventory";
 import { InventoryItem } from "@/types/inventory";
 import { screen, render } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
