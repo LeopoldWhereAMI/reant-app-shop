@@ -2,6 +2,7 @@ import CartList from "@/components/Cart/ui/CartList";
 import type { CartItemType } from "@/lib/cart/cart-types";
 import { useCartHydration } from "@/lib/cart/useCartHydration";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 vi.mock("@/lib/cart/useCartHydration", () => ({
@@ -25,7 +26,16 @@ vi.mock("@/components/Cart/ui/CartSuccess", () => ({
 }));
 
 vi.mock("@/components/Cart/ui/CartSummary", () => ({
-  default: () => <div>Итого</div>,
+  default: ({
+    setOrderCreated,
+  }: {
+    setOrderCreated: (state: boolean) => void;
+  }) => (
+    <>
+      <div>Итого</div>
+      <button onClick={() => setOrderCreated(true)}>Создать заказ</button>
+    </>
+  ),
 }));
 
 vi.mock("@/components/Cart/ui/CartItem", () => ({
@@ -75,5 +85,17 @@ describe("CartList", () => {
     render(<CartList />);
 
     expect(screen.getByText("Итого")).toBeInTheDocument();
+  });
+
+  it("показывает компонент CartSuccess после создания заказа", async () => {
+    cart = cartItems;
+
+    const user = userEvent.setup();
+
+    render(<CartList />);
+
+    await user.click(screen.getByRole("button", { name: "Создать заказ" }));
+
+    expect(screen.getByText("Заказ успешно оформлен")).toBeInTheDocument();
   });
 });

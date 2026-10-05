@@ -1,7 +1,7 @@
 import { RefObject } from "react";
 import { Button } from "@/components/ui/button";
 
-type Props = {
+export type ModalProps = {
   rentItemNames: string[];
   rentItemPrice: number;
   dialogRef: RefObject<HTMLDialogElement | null>;
@@ -19,7 +19,7 @@ export default function RentConfirmModal({
   handleSubmit,
   loading,
   error,
-}: Props) {
+}: ModalProps) {
   return (
     <dialog
       ref={dialogRef}
