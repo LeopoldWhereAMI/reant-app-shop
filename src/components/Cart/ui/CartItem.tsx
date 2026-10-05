@@ -45,6 +45,7 @@ export default function CartItem({ item }: Props) {
             <Button
               variant="ghost"
               size="sm"
+              aria-label="Уменьшить количество дней"
               className="h-8 w-8 rounded-r-none px-0"
               onClick={() => decreaseRentDays(item.id)}
               disabled={rentDays === 1}
@@ -59,6 +60,7 @@ export default function CartItem({ item }: Props) {
             <Button
               variant="ghost"
               size="sm"
+              aria-label="Увеличить количество дней"
               className="h-8 w-8 rounded-l-none px-0"
               onClick={() => increaseRentDays(item.id)}
             >
@@ -71,6 +73,7 @@ export default function CartItem({ item }: Props) {
           <Button
             variant="destructive"
             size="sm"
+            aria-label="Удалить инструмент из корзины"
             onClick={() => removeItem(item.id)}
           >
             Удалить

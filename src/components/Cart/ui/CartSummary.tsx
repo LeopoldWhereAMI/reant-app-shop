@@ -61,6 +61,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
 
       <Button
         className="mt-6 w-full"
+        aria-label="Оформить аренду"
         onClick={handleOpenClick}
         disabled={isAuthLoading || loading || items.length === 0}
       >
