@@ -43,11 +43,12 @@ export default function LoginForm() {
       className="space-y-3 rounded-xl border bg-card p-6 shadow-sm"
       noValidate
     >
-      <FormField id="email" label="Email" error={errors.email?.message}>
+      <FormField id="Email" label="Email" error={errors.email?.message}>
         <Input
           type="email"
           placeholder="you@example.com"
           {...register("email")}
+          id="Email"
           aria-invalid={!!errors.email}
           aria-describedby="email-error"
         />
@@ -58,6 +59,7 @@ export default function LoginForm() {
           type="password"
           placeholder="••••••••"
           {...register("password")}
+          id="password"
           aria-invalid={!!errors.password}
           aria-describedby="password-error"
         />
