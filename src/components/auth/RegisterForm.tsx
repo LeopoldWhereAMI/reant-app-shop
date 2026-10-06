@@ -51,6 +51,7 @@ export default function RegisterForm() {
           type="text"
           placeholder="Иван Иванов"
           {...register("name")}
+          id="name"
           aria-invalid={!!errors.name}
           aria-describedby="name-error"
         />
@@ -65,6 +66,7 @@ export default function RegisterForm() {
           type="tel"
           placeholder="+7 999 123-45-67"
           {...register("phoneNumber")}
+          id="phoneNumber"
           aria-invalid={!!errors.phoneNumber}
           aria-describedby="name-error"
         />
@@ -75,6 +77,7 @@ export default function RegisterForm() {
           type="email"
           placeholder="you@example.com"
           {...register("email")}
+          id="email"
           aria-invalid={!!errors.email}
           aria-describedby="name-error"
         />
@@ -85,6 +88,7 @@ export default function RegisterForm() {
           type="password"
           placeholder="••••••••"
           {...register("password")}
+          id="password"
           aria-invalid={!!errors.password}
           aria-describedby="name-error"
         />

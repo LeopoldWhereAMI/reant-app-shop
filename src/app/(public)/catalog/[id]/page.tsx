@@ -1,4 +1,5 @@
-import { Button, buttonVariants } from "@/components/ui/button";
+import AddToCartButton from "@/components/Catalog/ui/AddToCartButton";
+import { buttonVariants } from "@/components/ui/button";
 import { getInventoryItem } from "@/lib/api/inventory";
 import { cn } from "cn";
 import Image from "next/image";
@@ -67,7 +68,6 @@ export default async function ToolPage({ params }: Props) {
               <p className="mt-1 text-2xl font-semibold">
                 {item.daily_price} ₽
                 <span className="text-sm font-normal text-muted-foreground">
-                  {" "}
                   / сутки
                 </span>
               </p>
@@ -113,10 +113,7 @@ export default async function ToolPage({ params }: Props) {
             </dl>
           </div>
 
-          {/* Кнопка действия */}
-          <Button size="lg" className="w-full">
-            Забронировать
-          </Button>
+          <AddToCartButton item={item} />
         </div>
       </div>
     </main>
