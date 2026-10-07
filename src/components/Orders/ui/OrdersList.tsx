@@ -1,4 +1,4 @@
-import { getOrders } from "@/actions/getOrders";
+import { getAllOrders } from "@/actions/getAllOrders";
 import OrdersEmpty from "./OrdersEmpty";
 import OrdersPagination from "./OrdersPagination";
 import OrderCard from "./OrderCard";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function OrdersList({ page }: Props) {
-  const { orders, totalPages, currentPage } = await getOrders(page);
+  const { orders, totalPages, currentPage } = await getAllOrders(page);
 
   if (orders.length === 0) {
     return <OrdersEmpty />;

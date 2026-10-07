@@ -6,7 +6,7 @@ import { headers } from "next/headers";
 
 const PAGE_SIZE = 9;
 
-export const getOrders = async (page: number) => {
+export const getAllOrders = async (page: number) => {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session?.user) throw new Error("Unauthorized");
 
