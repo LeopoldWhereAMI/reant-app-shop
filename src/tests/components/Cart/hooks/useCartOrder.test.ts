@@ -1,11 +1,11 @@
-import { createOrder } from "@/actions/order";
+import { createOrder } from "@/actions/createOrder";
 import useCartOrder from "@/components/Cart/hooks/useCartOrder";
 import useCartStore from "@/lib/cart/cart-store";
 import { CartItemType } from "@/lib/cart/cart-types";
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@/actions/order", () => ({
+vi.mock("@/actions/createOrder", () => ({
   createOrder: vi.fn(),
 }));
 

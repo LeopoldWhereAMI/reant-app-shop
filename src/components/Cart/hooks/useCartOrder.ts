@@ -1,6 +1,6 @@
 "use client";
 
-import { createOrder } from "@/actions/order";
+import { createOrder } from "@/actions/createOrder";
 import useCartStore from "@/lib/cart/cart-store";
 import { CartItemType } from "@/lib/cart/cart-types";
 import { useState } from "react";

@@ -1,6 +1,6 @@
 "use client";
 
-import { InventoryItem } from "@/types/inventory";
+import type { InventoryItem } from "@/types/inventory";
 import { ToolCard } from "./ToolCard";
 import CatalogPagination from "./CatalogPagination";
 import usePagination from "../hooks/usePagination";

@@ -4,7 +4,7 @@ import type { CartItemType } from "@/lib/cart/cart-types";
 import useCartStore from "@/lib/cart/cart-store";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { formatDays } from "@/lib/formatters/days";
+import { formatDays } from "@/components/Cart/utils/format-days";
 
 type Props = {
   item: CartItemType;

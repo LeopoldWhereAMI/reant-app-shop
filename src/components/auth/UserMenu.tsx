@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { LogOut, User } from "lucide-react";
+import { ListOrdered, LogOut, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import {
@@ -54,6 +54,15 @@ export function UserMenu() {
           <DropdownMenuItem onClick={() => router.push("/profile")}>
             <User />
             Профиль
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={() => router.push("/orders")}>
+            <ListOrdered />
+            Мои заказы
           </DropdownMenuItem>
         </DropdownMenuGroup>
 
