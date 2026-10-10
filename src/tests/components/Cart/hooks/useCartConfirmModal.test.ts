@@ -1,4 +1,4 @@
-import useCartConfirmModal from "@/components/Cart/hooks/useCartConfirmModal";
+import useCartConfirmModal from "@/hooks/useModal";
 import { renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 

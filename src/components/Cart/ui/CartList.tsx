@@ -7,6 +7,7 @@ import { useCartHydration } from "@/lib/cart/useCartHydration";
 import CartEmpty from "./CartEmpty";
 import CartItem from "./CartItem";
 import CartSuccess from "./CartSuccess";
+import Loader from "@/components/Feedback/Loader";
 
 export default function CartList() {
   const [orderCreated, setOrderCreated] = useState(false);
@@ -16,11 +17,7 @@ export default function CartList() {
   const items = useCartStore((state) => state.cart);
 
   if (!hydrated) {
-    return (
-      <div className="py-16 text-center text-muted-foreground">
-        Загрузка корзины...
-      </div>
-    );
+    return <Loader>Загрузка корзины...</Loader>;
   }
 
   if (orderCreated) {

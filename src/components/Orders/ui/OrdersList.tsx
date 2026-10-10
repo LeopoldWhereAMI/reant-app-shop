@@ -1,4 +1,4 @@
-import { getAllOrders } from "@/actions/getAllOrders";
+import { getAllOrders } from "@/actions/orders/getAllOrders";
 import OrdersEmpty from "./OrdersEmpty";
 import OrdersPagination from "./OrdersPagination";
 import OrderCard from "./OrderCard";

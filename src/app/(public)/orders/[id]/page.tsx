@@ -1,4 +1,4 @@
-import { getOrderById } from "@/actions/getOrderById";
+import { getOrderById } from "@/actions/orders/getOrderById";
 import Link from "next/link";
 import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
 import { formatDays } from "@/components/Cart/utils/format-days";

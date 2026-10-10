@@ -1,3 +1,4 @@
+import BalanceCard from "@/components/Balance/BalanceCard";
 import OrdersList from "@/components/Orders/ui/OrdersList";
 
 type Props = {
@@ -22,7 +23,15 @@ export default async function OrdersPage({ searchParams }: Props) {
         </p>
       </header>
 
-      <OrdersList page={page} />
+      <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
+        <section>
+          <OrdersList page={page} />
+        </section>
+
+        <aside>
+          <BalanceCard />
+        </aside>
+      </div>
     </main>
   );
 }

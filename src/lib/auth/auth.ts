@@ -13,12 +13,28 @@ export const auth = betterAuth({
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
+
+  databaseHooks: {
+    user: {
+      create: {
+        after: async (user) => {
+          await prisma.wallet.create({
+            data: {
+              userId: user.id,
+            },
+          });
+        },
+      },
+    },
+  },
+
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: true,
   },
+
   emailVerification: {
-    sendVerificationEmail: async ({ user, url, token }, request) => {
+    sendVerificationEmail: async ({ user, url }) => {
       const { data, error } = await resend.emails.send({
         from: "RentApp-Shop <onboarding@resend.dev>",
         to: user.email,
@@ -35,6 +51,7 @@ export const auth = betterAuth({
         console.log("Resend email sent:", data);
       }
     },
+
     autoSignInAfterVerification: false,
   },
   user: {
