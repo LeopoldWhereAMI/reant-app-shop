@@ -3,6 +3,8 @@ import Link from "next/link";
 import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
 import { formatDays } from "@/components/Cart/utils/format-days";
 import OrderNotFound from "@/components/Orders/ui/OrderNotFound";
+import CancelOrderButton from "@/components/Orders/ui/order-details/CancelOrderButton";
+import CancelledNotice from "@/components/Orders/ui/order-details/CancelledNotice";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -83,6 +85,9 @@ export default async function OrderPage({ params }: Props) {
             {order.totalPrice.toLocaleString("ru-RU")} ₽
           </span>
         </div>
+
+        {order.status === "PENDING" && <CancelOrderButton orderId={id} />}
+        {order.status === "CANCELLED" && <CancelledNotice />}
       </section>
     </main>
   );

@@ -10,7 +10,7 @@ export default function CartSuccess() {
         Посмотреть статус заказа можно в меню Мои Заказы
       </p>
 
-      <Link href="/" className={cn(buttonVariants())}>
+      <Link href="/orders" className={cn(buttonVariants())}>
         Мои Заказы
       </Link>
     </div>

@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { getWallet } from "@/actions/wallet/getWallet";
 
-export default function useGetBalnce() {
+export default function useGetBalance() {
   const [balance, setBalance] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

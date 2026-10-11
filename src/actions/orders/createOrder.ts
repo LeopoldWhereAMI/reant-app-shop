@@ -18,6 +18,27 @@ export const createOrder = async (items: CartItemsFromClient[]) => {
     throw new Error("Корзина пуста");
   }
 
+  const seenIds = new Set<string>();
+
+  for (const item of items) {
+    if (
+      !item ||
+      typeof item.id !== "string" ||
+      !item.id.trim() ||
+      !Number.isInteger(item.rentDays) ||
+      item.rentDays < 1 ||
+      item.rentDays > 365
+    ) {
+      throw new Error("Некорректные данные корзины");
+    }
+
+    if (seenIds.has(item.id)) {
+      throw new Error("В корзине есть повторяющиеся товары");
+    }
+
+    seenIds.add(item.id);
+  }
+
   // 1.  Получаем актуальные товары из внешнего API
   const inventoryItems = await Promise.all(
     items.map(({ id }) => getInventoryItem(id)),
@@ -35,14 +56,6 @@ export const createOrder = async (items: CartItemsFromClient[]) => {
       throw new Error(`Товар "${inv.name}" недоступен`);
     }
 
-    if (!Number.isInteger(cartItem.rentDays) || cartItem.rentDays < 1) {
-      throw new Error("Срок аренды должен быть не меньше 1 дня");
-    }
-
-    if (cartItem.rentDays > 365) {
-      throw new Error("Срок аренды не может превышать 365 дней");
-    }
-
     // Возвращаемый объект — это то, что Prisma запишет в таблицу OrderItem
     return {
       inventoryId: inv.id,
@@ -56,13 +69,60 @@ export const createOrder = async (items: CartItemsFromClient[]) => {
   const totalPrice = orderItems.reduce((acc, item) => acc + item.totalPrice, 0);
 
   // Возвращаемый объект — это то, что Prisma запишет в таблицу Order
-  return prisma.order.create({
-    data: {
-      userId: session.user.id,
-      totalPrice,
-      items: {
-        create: orderItems,
+  return prisma.$transaction(async (tx) => {
+    // 1. Находим кошелёк пользователя
+    const wallet = await tx.wallet.findUnique({
+      where: {
+        userId: session.user.id,
       },
-    },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!wallet) {
+      throw new Error("Кошелёк не найден");
+    }
+
+    // 2. Списываем деньги, только если хватает баланса
+    const debit = await tx.wallet.updateMany({
+      where: {
+        userId: session.user.id,
+        balance: { gte: totalPrice },
+      },
+      data: {
+        balance: { decrement: totalPrice },
+      },
+    });
+
+    if (debit.count !== 1) {
+      throw new Error("Недостаточно средств на балансе");
+    }
+
+    // 3. Создаём заказ со статусом ожидания подтверждения
+    const order = await tx.order.create({
+      data: {
+        userId: session.user.id,
+        totalPrice,
+        status: "PENDING",
+        items: {
+          create: orderItems,
+        },
+      },
+    });
+
+    // 4. Сохраняем списание в истории кошелька
+    if (totalPrice > 0) {
+      await tx.walletTransaction.create({
+        data: {
+          walletId: wallet.id,
+          orderId: order.id,
+          type: "PAYMENT",
+          amount: totalPrice,
+        },
+      });
+    }
+
+    return order;
   });
 };

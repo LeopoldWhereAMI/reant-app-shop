@@ -6,8 +6,8 @@ import { Button } from "@/components/ui/button";
 import useModal from "@/hooks/useModal";
 import useCartOrder from "../hooks/useCartOrder";
 import useCartAuth from "../hooks/useCartAuth";
-import useGetBalnce from "../hooks/useGetBalnce";
 import BalanceDeposit from "@/components/Balance/BalanceDeposit";
+import useGetBalance from "../hooks/useGetBalance";
 
 type Props = {
   items: CartItemType[];
@@ -21,7 +21,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
     isLoading: isBalanceLoading,
     error: balanceError,
     refreshBalance,
-  } = useGetBalnce();
+  } = useGetBalance();
   const { dialogRef, handleOpen, handleClose } = useModal();
 
   const onSuccess = () => {
@@ -58,7 +58,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">За 1 день</span>
           <span className="font-medium">
-            {(dailyTotal ?? 0).toLocaleString("ru-RU")} ₽
+            {dailyTotal.toLocaleString("ru-RU")} ₽
           </span>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
         <div className="flex items-end justify-between">
           <span className="font-semibold">К оплате</span>
           <span className="text-2xl font-semibold text-price">
-            {(totalPrice ?? 0).toLocaleString("ru-RU")} ₽
+            {totalPrice.toLocaleString("ru-RU")} ₽
           </span>
         </div>
 
@@ -107,21 +107,19 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
             </div>
           )}
 
-        <>
-          <Button
-            className="mt-6 w-full"
-            aria-label="Оформить аренду"
-            type="submit"
-            onClick={handleOpenClick}
-            disabled={isAuthLoading || loading || items.length === 0}
-          >
-            {loading ? "Оформление заказа..." : "Оформить аренду"}
-          </Button>
+        <Button
+          className="mt-6 w-full"
+          aria-label="Оформить аренду"
+          type="button"
+          onClick={handleOpenClick}
+          disabled={isAuthLoading || loading || items.length === 0}
+        >
+          {loading ? "Оформление заказа..." : "Оформить аренду"}
+        </Button>
 
-          <p className="mt-3 text-center text-xs text-muted-foreground">
-            Перед оформлением вы сможете подтвердить заказ
-          </p>
-        </>
+        <p className="mt-3 text-center text-xs text-muted-foreground">
+          Перед оформлением вы сможете подтвердить заказ
+        </p>
       </div>
 
       <RentConfirmModal
