@@ -21,11 +21,24 @@ export default function CancelOrderButton({ orderId }: Props) {
 
     startTransition(async () => {
       try {
-        await cancelOrder(orderId);
+        const result = await cancelOrder(orderId);
+
+        if (!result.success) {
+          const messages = {
+            UNAUTHORIZED: "Войдите в аккаунт, чтобы отменить заказ.",
+            ORDER_NOT_CANCELLABLE:
+              "Заказ не найден или его уже нельзя отменить.",
+            INTERNAL_ERROR: "Не удалось отменить заказ. Попробуйте позже.",
+          };
+
+          setError(messages[result.code]);
+          return;
+        }
 
         router.refresh();
       } catch (error) {
-        setError(error instanceof Error ? error.message : "Ошибка отмены");
+        console.error("Ошибка отмены заказа:", error);
+        setError("Не удалось отменить заказ. Попробуйте позже.");
       }
     });
   };
