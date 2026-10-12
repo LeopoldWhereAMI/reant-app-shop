@@ -1,7 +1,7 @@
 import { getOrderById } from "@/actions/orders/getOrderById";
 import Link from "next/link";
 import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
-import OrderNotFound from "@/components/Orders/ui/OrderNotFound";
+import OrderNotFound from "@/components/Orders/ui/OrdersList/OrderNotFound";
 import CancelOrderButton from "@/components/Orders/ui/order-details/CancelOrderButton";
 import CancelledNotice from "@/components/Orders/ui/order-details/CancelledNotice";
 import OrderItem from "@/components/Orders/ui/order-details/OrderItem";

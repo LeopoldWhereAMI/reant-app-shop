@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import {
   formatOrderStatus,
   type OrderStatusType,
-} from "../utils/format-order-status";
-import { formatTools } from "../utils/format-tools";
-import Link from "next/link";
+} from "@/components/Orders/utils/format-order-status";
+import { formatTools } from "@/components/Orders/utils/format-tools";
 
 type Props = {
   id: string;

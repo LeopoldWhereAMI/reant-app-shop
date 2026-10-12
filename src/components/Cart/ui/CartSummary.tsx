@@ -57,7 +57,7 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
 
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">За 1 день</span>
-          <span className="font-medium">
+          <span data-testid="daily-total" className="font-medium">
             {dailyTotal.toLocaleString("ru-RU")} ₽
           </span>
         </div>
@@ -68,7 +68,10 @@ export default function CartSummary({ items, setOrderCreated }: Props) {
       <div className="space-y-2">
         <div className="flex items-end justify-between">
           <span className="font-semibold">К оплате</span>
-          <span className="text-2xl font-semibold text-price">
+          <span
+            data-testid="total-price"
+            className="text-2xl font-semibold text-price"
+          >
             {totalPrice.toLocaleString("ru-RU")} ₽
           </span>
         </div>

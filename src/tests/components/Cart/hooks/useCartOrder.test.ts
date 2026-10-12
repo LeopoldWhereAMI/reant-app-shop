@@ -5,7 +5,7 @@ import { CartItemType } from "@/lib/cart/cart-types";
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@/actions/createOrder", () => ({
+vi.mock("@/actions/orders/createOrder", () => ({
   createOrder: vi.fn(),
 }));
 

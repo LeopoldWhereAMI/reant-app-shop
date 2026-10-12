@@ -32,7 +32,7 @@ vi.mock("@/components/Cart/hooks/useCartOrder", () => ({
 const handleOpen = vi.fn();
 const handleClose = vi.fn();
 
-vi.mock("@/components/Cart/hooks/useCartConfirmModal", () => ({
+vi.mock("@/hooks/useModal", () => ({
   default: vi.fn(() => ({
     dialogRef: { current: null },
     handleOpen,
@@ -50,6 +50,21 @@ vi.mock("@/lib/cart/cart-store", () => ({
 
 vi.mock("@/components/Cart/ui/RentConfirmModal", () => ({
   default: () => <div>Модальное окно</div>,
+}));
+
+vi.mock("@/components/Balance/BalanceDeposit", () => ({
+  default: () => null,
+}));
+
+const mockUseGetBalance = vi.fn(() => ({
+  balance: 0 as number | null,
+  isLoading: false,
+  error: null as string | null,
+  refreshBalance: vi.fn(),
+}));
+
+vi.mock("@/components/Cart/hooks/useGetBalance", () => ({
+  default: () => mockUseGetBalance(),
 }));
 
 const mockSetOrderCreated = vi.fn();
@@ -85,12 +100,9 @@ describe("CartSummary", () => {
       <CartSummary items={cartItems} setOrderCreated={mockSetOrderCreated} />,
     );
 
-    const dailyTotal = cartItems.reduce(
-      (acc, item) => acc + item.daily_price,
-      0,
+    expect(screen.getByTestId("daily-total").textContent).toMatch(
+      /^1\s?500 ₽$/,
     );
-
-    expect(screen.getByText(`${dailyTotal} ₽`)).toBeInTheDocument();
   });
 
   it("показывает общую стоимость аренды за все дни", () => {
@@ -98,12 +110,7 @@ describe("CartSummary", () => {
       <CartSummary items={cartItems} setOrderCreated={mockSetOrderCreated} />,
     );
 
-    const totalPrice = cartItems.reduce(
-      (acc, item) => acc + item.daily_price * item.rentDays,
-      0,
-    );
-
-    expect(screen.getByText(`${totalPrice} ₽`)).toBeInTheDocument();
+    expect(screen.getByTestId("total-price").textContent).toMatch(/2\s?000 ₽/);
   });
 
   it("при клике по кнопке Оформить аренду вызывается requireAuth()", async () => {
@@ -187,5 +194,51 @@ describe("CartSummary", () => {
     expect(mockSetOrderCreated).toHaveBeenCalledTimes(1);
     expect(mockSetOrderCreated).toHaveBeenCalledWith(true);
     expect(handleClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("показывает загрузку баланса", () => {
+    mockUseGetBalance.mockReturnValue({
+      balance: null,
+      isLoading: true,
+      error: null,
+      refreshBalance: vi.fn(),
+    });
+
+    render(
+      <CartSummary items={cartItems} setOrderCreated={mockSetOrderCreated} />,
+    );
+
+    expect(screen.getByText("Загрузка...")).toBeInTheDocument();
+  });
+
+  it("показывает ошибку, если баланс недоступен", () => {
+    mockUseGetBalance.mockReturnValue({
+      balance: null,
+      isLoading: false,
+      error: "Ошибка загрузки баланса",
+      refreshBalance: vi.fn(),
+    });
+
+    render(
+      <CartSummary items={cartItems} setOrderCreated={mockSetOrderCreated} />,
+    );
+
+    expect(screen.getByText("Недоступен")).toBeInTheDocument();
+  });
+
+  it("не показывает пополнение, если баланса хватает на заказ", () => {
+    mockUseGetBalance.mockReturnValue({
+      balance: 5000,
+      isLoading: false,
+      error: null,
+      refreshBalance: vi.fn(),
+    });
+
+    render(
+      <CartSummary items={cartItems} setOrderCreated={mockSetOrderCreated} />,
+    );
+
+    expect(screen.getByText(/5\s*000\s*₽/)).toBeInTheDocument();
+    expect(screen.queryByText("Не хватает")).not.toBeInTheDocument();
   });
 });

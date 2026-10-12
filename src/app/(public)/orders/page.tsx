@@ -1,5 +1,5 @@
 import BalanceCard from "@/components/Balance/BalanceCard";
-import OrdersList from "@/components/Orders/ui/OrdersList";
+import OrdersList from "@/components/Orders/ui/OrdersList/OrdersList";
 
 type Props = {
   searchParams: Promise<{
