@@ -1,10 +1,10 @@
 import { getOrderById } from "@/actions/orders/getOrderById";
 import Link from "next/link";
 import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
-import { formatDays } from "@/components/Cart/utils/format-days";
 import OrderNotFound from "@/components/Orders/ui/OrderNotFound";
 import CancelOrderButton from "@/components/Orders/ui/order-details/CancelOrderButton";
 import CancelledNotice from "@/components/Orders/ui/order-details/CancelledNotice";
+import OrderItem from "@/components/Orders/ui/order-details/OrderItem";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -13,6 +13,8 @@ type Props = {
 export default async function OrderPage({ params }: Props) {
   const { id } = await params;
   const order = await getOrderById(id);
+
+  const itemNames = order!.items.map(({ name }) => name);
 
   if (!order) {
     return (
@@ -59,22 +61,7 @@ export default async function OrderPage({ params }: Props) {
 
         <ul className="divide-y">
           {order.items.map((item) => (
-            <li key={item.id} className="px-5 py-4">
-              <div className="flex items-start justify-between gap-4">
-                <div className="min-w-0">
-                  <h3 className="font-medium text-foreground">{item.name}</h3>
-
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {item.dailyPrice.toLocaleString("ru-RU")} ₽ ×{" "}
-                    {item.rentDays} {formatDays(item.rentDays)}
-                  </p>
-                </div>
-
-                <p className="shrink-0 font-medium text-price">
-                  {item.totalPrice.toLocaleString("ru-RU")} ₽
-                </p>
-              </div>
-            </li>
+            <OrderItem key={item.id} item={item} />
           ))}
         </ul>
 
@@ -86,7 +73,13 @@ export default async function OrderPage({ params }: Props) {
           </span>
         </div>
 
-        {order.status === "PENDING" && <CancelOrderButton orderId={id} />}
+        {order.status === "PENDING" && (
+          <CancelOrderButton
+            orderId={id}
+            itemNames={itemNames}
+            totalPrice={order.totalPrice}
+          />
+        )}
         {order.status === "CANCELLED" && <CancelledNotice />}
       </section>
     </main>

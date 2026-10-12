@@ -5,18 +5,27 @@ import ErrorMessage from "@/components/Feedback/ErrorMessage";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import CancelConfirmModal from "./CancelConfirmModal";
+import useModal from "@/hooks/useModal";
 
 type Props = {
   orderId: string;
+  itemNames: string[];
+  totalPrice: number;
 };
 
-export default function CancelOrderButton({ orderId }: Props) {
+export default function CancelOrderButton({
+  orderId,
+  itemNames,
+  totalPrice,
+}: Props) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const { dialogRef, handleClose, handleOpen } = useModal();
 
   const router = useRouter();
 
-  const handleClick = () => {
+  const handleSubmit = () => {
     setError(null);
 
     startTransition(async () => {
@@ -44,22 +53,32 @@ export default function CancelOrderButton({ orderId }: Props) {
   };
 
   return (
-    <div className="border-t px-5 py-4">
-      <Button
-        onClick={handleClick}
-        variant={"destructive"}
-        disabled={isPending}
-      >
-        {isPending ? "Отменяем заказ..." : "Отменить заказ"}
-      </Button>
+    <>
+      <div className="border-t px-5 py-4">
+        <Button
+          onClick={handleOpen}
+          variant={"destructive"}
+          disabled={isPending}
+        >
+          {isPending ? "Отменяем заказ..." : "Отменить заказ"}
+        </Button>
 
-      {error ? (
-        <ErrorMessage message={error} />
-      ) : (
-        <p className="mt-2 text-sm text-muted-foreground">
-          После отмены заказа деньги будут возвращены на баланс.
-        </p>
-      )}
-    </div>
+        {error ? (
+          <ErrorMessage message={error} />
+        ) : (
+          <p className="mt-2 text-sm text-muted-foreground">
+            После отмены заказа деньги будут возвращены на баланс.
+          </p>
+        )}
+      </div>
+
+      <CancelConfirmModal
+        itemNames={itemNames}
+        totalPrice={totalPrice}
+        dialogRef={dialogRef}
+        handleClose={handleClose}
+        handleSubmit={handleSubmit}
+      />
+    </>
   );
 }
