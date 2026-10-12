@@ -1,9 +1,9 @@
 "use client";
 
+import { useState } from "react";
 import { createOrder } from "@/actions/orders/createOrder";
 import useCartStore from "@/lib/cart/cart-store";
-import { CartItemType } from "@/lib/cart/cart-types";
-import { useState } from "react";
+import type { CartItemType } from "@/lib/cart/cart-types";
 
 export default function useCartOrder(
   items: CartItemType[],

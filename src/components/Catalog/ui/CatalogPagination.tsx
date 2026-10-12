@@ -1,10 +1,10 @@
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../../ui/button";
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
 } from "../../ui/pagination";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 type Props = {
   currentPage: number;

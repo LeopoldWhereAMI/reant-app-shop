@@ -1,10 +1,10 @@
-import AddToCartButton from "@/components/Catalog/ui/AddToCartButton";
-import { buttonVariants } from "@/components/ui/button";
-import { getInventoryItem } from "@/lib/api/inventory";
 import { cn } from "cn";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AddToCartButton from "@/components/Catalog/ui/AddToCartButton";
+import { buttonVariants } from "@/components/ui/button";
+import { getInventoryItem } from "@/lib/api/inventory";
 
 type Props = {
   params: Promise<{ id: string }>;

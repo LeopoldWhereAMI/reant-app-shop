@@ -1,6 +1,6 @@
 import { getWallet } from "@/actions/wallet/getWallet";
-import BalanceDeposit from "./BalanceDeposit";
 import WalletHistory from "../WalletHistory/ui/WalletHistory";
+import BalanceDeposit from "./BalanceDeposit";
 
 export default async function BalanceCard() {
   const wallet = await getWallet();

@@ -1,7 +1,7 @@
 "use client";
 
-import { authClient } from "@/lib/auth/auth-client";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth/auth-client";
 
 export default function useCartAuth() {
   const router = useRouter();

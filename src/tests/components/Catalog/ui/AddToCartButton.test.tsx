@@ -1,10 +1,10 @@
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import AddToCartButton from "@/components/Catalog/ui/AddToCartButton";
 import type { CartItemType } from "@/lib/cart/cart-types";
 import { useCartHydration } from "@/lib/cart/useCartHydration";
 import type { InventoryItem } from "@/types/inventory";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const addToCart = vi.fn();
 const removeItem = vi.fn();

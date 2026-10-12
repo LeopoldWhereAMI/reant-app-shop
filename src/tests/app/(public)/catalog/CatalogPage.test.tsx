@@ -1,6 +1,6 @@
-import CatalogPage from "@/app/(public)/catalog/page";
-import { screen, render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import CatalogPage from "@/app/(public)/catalog/page";
 
 const { mockGetInventory } = vi.hoisted(() => ({
   mockGetInventory: vi.fn(), // пустая функция-шпион, ничего не делает

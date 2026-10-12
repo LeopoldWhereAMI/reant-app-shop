@@ -1,6 +1,6 @@
+import { beforeEach, describe, expect, it } from "vitest";
 import useCartStore from "@/lib/cart/cart-store";
 import type { CartItemType } from "@/lib/cart/cart-types";
-import { beforeEach, describe, expect, it } from "vitest";
 
 const item1: CartItemType = {
   id: "1",

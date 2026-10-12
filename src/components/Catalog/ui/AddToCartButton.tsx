@@ -1,9 +1,9 @@
 "use client";
 
-import type { InventoryItem } from "@/types/inventory";
+import { Button } from "@/components/ui/button";
 import useCartStore from "@/lib/cart/cart-store";
 import { useCartHydration } from "@/lib/cart/useCartHydration";
-import { Button } from "@/components/ui/button";
+import type { InventoryItem } from "@/types/inventory";
 
 type Props = { item: InventoryItem; disabled?: boolean };
 

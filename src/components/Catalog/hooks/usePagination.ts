@@ -1,7 +1,7 @@
 "use client";
 
-import { InventoryItem } from "@/types/inventory";
 import { useState } from "react";
+import type { InventoryItem } from "@/types/inventory";
 
 const DEFAULT_PAGE_SIZE = 8;
 

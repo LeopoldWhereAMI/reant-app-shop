@@ -1,9 +1,9 @@
 "use client";
 
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { useState } from "react";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
 type Props = {
   onSubmit: (amount: number) => Promise<void>;

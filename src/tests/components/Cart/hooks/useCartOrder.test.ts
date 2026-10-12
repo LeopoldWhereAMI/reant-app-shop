@@ -1,9 +1,9 @@
+import { act, renderHook } from "@testing-library/react";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { createOrder } from "@/actions/orders/createOrder";
 import useCartOrder from "@/components/Cart/hooks/useCartOrder";
 import useCartStore from "@/lib/cart/cart-store";
-import { CartItemType } from "@/lib/cart/cart-types";
-import { act, renderHook } from "@testing-library/react";
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import type { CartItemType } from "@/lib/cart/cart-types";
 
 vi.mock("@/actions/orders/createOrder", () => ({
   createOrder: vi.fn(),
@@ -32,6 +32,7 @@ describe("useCartOrder", () => {
     vi.mocked(useCartStore).mockImplementation((selector) =>
       selector({
         clearCart,
+        // biome-ignore lint/suspicious/noExplicitAny: в тесте используется минимальная заглушка Zustand store
       } as any),
     );
   });

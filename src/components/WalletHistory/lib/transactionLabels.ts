@@ -1,4 +1,4 @@
-import { WalletTransactionType } from "@/generated/prisma/enums";
+import type { WalletTransactionType } from "@/generated/prisma/enums";
 
 export const transactionLabels: Record<WalletTransactionType, string> = {
   DEPOSIT: "Пополнение баланса",

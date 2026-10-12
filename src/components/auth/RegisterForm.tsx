@@ -1,15 +1,18 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterFormData, registerSchema } from "./schemas/register-schema";
-import { Checkbox } from "../ui/checkbox";
-import { FormField } from "../forms/FormField";
-import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth/auth-client";
+import { FormField } from "../forms/FormField";
+import { Checkbox } from "../ui/checkbox";
+import {
+  type RegisterFormData,
+  registerSchema,
+} from "./schemas/register-schema";
 
 export default function RegisterForm() {
   const router = useRouter();

@@ -1,6 +1,6 @@
-import useCartConfirmModal from "@/hooks/useModal";
 import { renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import useCartConfirmModal from "@/hooks/useModal";
 
 describe("useCartConfirmModal", () => {
   it("handleOpen вызывает showModal", () => {

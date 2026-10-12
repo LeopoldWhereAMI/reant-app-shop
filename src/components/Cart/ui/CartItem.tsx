@@ -1,10 +1,10 @@
 "use client";
 
-import type { CartItemType } from "@/lib/cart/cart-types";
-import useCartStore from "@/lib/cart/cart-store";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
 import { formatDays } from "@/components/Cart/utils/format-days";
+import { Button } from "@/components/ui/button";
+import useCartStore from "@/lib/cart/cart-store";
+import type { CartItemType } from "@/lib/cart/cart-types";
 
 type Props = {
   item: CartItemType;

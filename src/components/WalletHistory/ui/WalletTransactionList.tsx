@@ -1,9 +1,9 @@
 "use client";
 
-import { WalletTransactionType } from "@/generated/prisma/enums";
-import Loader from "@/components/Feedback/Loader";
-import { transactionLabels } from "../lib/transactionLabels";
 import ErrorMessage from "@/components/Feedback/ErrorMessage";
+import Loader from "@/components/Feedback/Loader";
+import type { WalletTransactionType } from "@/generated/prisma/enums";
+import { transactionLabels } from "../lib/transactionLabels";
 
 type Transaction = {
   id: string;
@@ -40,39 +40,37 @@ export default function WalletTransactionList({
     );
   }
   return (
-    <>
-      <ul className="mt-5 divide-y">
-        {transactions.map((transaction) => {
-          const isPayment = transaction.type === "PAYMENT";
-          const sign = isPayment ? "−" : "+";
+    <ul className="mt-5 divide-y">
+      {transactions.map((transaction) => {
+        const isPayment = transaction.type === "PAYMENT";
+        const sign = isPayment ? "−" : "+";
 
-          return (
-            <li
-              key={transaction.id}
-              className="flex items-center justify-between gap-4 py-4"
-            >
-              <div className="min-w-0">
-                <p className="font-medium">
-                  {transactionLabels[transaction.type]}
-                </p>
-
-                <p className="mt-1 text-sm text-muted-foreground">
-                  {transaction.createdAt.toLocaleString("ru-RU")}
-                </p>
-              </div>
-
-              <p
-                className={`shrink-0 font-semibold ${
-                  isPayment ? "text-foreground" : "text-price"
-                }`}
-              >
-                {sign}
-                {transaction.amount.toLocaleString("ru-RU")} ₽
+        return (
+          <li
+            key={transaction.id}
+            className="flex items-center justify-between gap-4 py-4"
+          >
+            <div className="min-w-0">
+              <p className="font-medium">
+                {transactionLabels[transaction.type]}
               </p>
-            </li>
-          );
-        })}
-      </ul>
-    </>
+
+              <p className="mt-1 text-sm text-muted-foreground">
+                {transaction.createdAt.toLocaleString("ru-RU")}
+              </p>
+            </div>
+
+            <p
+              className={`shrink-0 font-semibold ${
+                isPayment ? "text-foreground" : "text-price"
+              }`}
+            >
+              {sign}
+              {transaction.amount.toLocaleString("ru-RU")} ₽
+            </p>
+          </li>
+        );
+      })}
+    </ul>
   );
 }

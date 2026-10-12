@@ -1,10 +1,10 @@
-import { getOrderById } from "@/actions/orders/getOrderById";
 import Link from "next/link";
-import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
+import { getOrderById } from "@/actions/orders/getOrderById";
 import OrderNotFound from "@/components/Orders/ui/OrdersList/OrderNotFound";
-import CancelOrderButton from "@/components/Orders/ui/order-details/CancelOrderButton";
 import CancelledNotice from "@/components/Orders/ui/order-details/CancelledNotice";
+import CancelOrderButton from "@/components/Orders/ui/order-details/CancelOrderButton";
 import OrderItem from "@/components/Orders/ui/order-details/OrderItem";
+import { formatOrderStatus } from "@/components/Orders/utils/format-order-status";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -14,8 +14,6 @@ export default async function OrderPage({ params }: Props) {
   const { id } = await params;
   const order = await getOrderById(id);
 
-  const itemNames = order!.items.map(({ name }) => name);
-
   if (!order) {
     return (
       <main className="mx-auto max-w-7xl px-4 py-10">
@@ -23,6 +21,8 @@ export default async function OrderPage({ params }: Props) {
       </main>
     );
   }
+
+  const itemNames = order.items.map(({ name }) => name);
 
   return (
     <main className="mx-auto max-w-7xl px-4 py-10">

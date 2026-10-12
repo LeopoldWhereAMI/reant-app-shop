@@ -1,12 +1,12 @@
 "use client";
 
+import { X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { type RefObject, useState } from "react";
+import { depositToWallet } from "@/actions/wallet/depositToWallet";
+import ErrorMessage from "../Feedback/ErrorMessage";
 import { Button } from "../ui/button";
 import BalanceDepositForm from "./BalanceDepositForm";
-import { X } from "lucide-react";
-import { depositToWallet } from "@/actions/wallet/depositToWallet";
-import { useRouter } from "next/navigation";
-import ErrorMessage from "../Feedback/ErrorMessage";
 
 type Props = {
   ref: RefObject<HTMLDialogElement | null>;

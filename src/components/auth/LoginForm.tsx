@@ -1,14 +1,14 @@
 "use client";
 
-import { FormField } from "../forms/FormField";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormData, loginSchema } from "./schemas/login-schema";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
 import { authClient } from "@/lib/auth/auth-client";
+import { FormField } from "../forms/FormField";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { type LoginFormData, loginSchema } from "./schemas/login-schema";
 
 export default function LoginForm() {
   const router = useRouter();

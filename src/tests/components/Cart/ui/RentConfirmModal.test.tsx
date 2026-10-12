@@ -1,10 +1,10 @@
-import RentConfirmModal, {
-  type ModalProps,
-} from "@/components/Cart/ui/RentConfirmModal";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { createRef } from "react";
 import { describe, expect, it, vi } from "vitest";
+import RentConfirmModal, {
+  type ModalProps,
+} from "@/components/Cart/ui/RentConfirmModal";
 
 const modalProps: ModalProps = {
   rentItemNames: ["Бензопила"],

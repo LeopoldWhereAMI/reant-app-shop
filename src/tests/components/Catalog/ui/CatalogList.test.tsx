@@ -1,9 +1,9 @@
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import { describe, expect, it } from "vitest";
 import CatalogList from "@/components/Catalog/ui/CatalogList";
 import { createInventoryItem } from "@/tests/components/Catalog/helpers/inventory";
 import type { InventoryItem } from "@/types/inventory";
-import { screen, render } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import { describe, expect, it } from "vitest";
 
 const createItems = (count: number): InventoryItem[] =>
   Array.from({ length: count }, (_, index) =>

@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState, type RefObject } from "react";
-import { Button } from "../../ui/button";
 import { X } from "lucide-react";
-import WalletTransactionList from "./WalletTransactionList";
+import { type RefObject, useEffect, useState } from "react";
 import { getWalletTransactions } from "@/actions/wallet/getWalletTransactions";
+import { Button } from "../../ui/button";
+import WalletTransactionList from "./WalletTransactionList";
 
 type Props = {
   ref: RefObject<HTMLDialogElement | null>;

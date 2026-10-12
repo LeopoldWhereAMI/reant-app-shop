@@ -1,7 +1,7 @@
-import CatalogPagination from "@/components/Catalog/ui/CatalogPagination";
-import { screen, render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import CatalogPagination from "@/components/Catalog/ui/CatalogPagination";
 
 type CatalogPaginationProps = {
   currentPage: number;

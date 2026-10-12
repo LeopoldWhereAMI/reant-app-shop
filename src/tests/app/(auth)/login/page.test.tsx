@@ -1,6 +1,6 @@
-import LoginPage from "@/app/(auth)/login/page";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import LoginPage from "@/app/(auth)/login/page";
 
 vi.mock("@/components/auth/LoginForm", () => ({
   default: () => <div>LoginForm</div>,

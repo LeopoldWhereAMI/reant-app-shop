@@ -1,5 +1,5 @@
+import type { RefObject } from "react";
 import { Button } from "@/components/ui/button";
-import { RefObject } from "react";
 
 type ModalProps = {
   itemNames: string[];

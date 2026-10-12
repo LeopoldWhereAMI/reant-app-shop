@@ -1,7 +1,7 @@
 import { getAllOrders } from "@/actions/orders/getAllOrders";
+import OrderCard from "./OrderCard";
 import OrdersEmpty from "./OrdersEmpty";
 import OrdersPagination from "./OrdersPagination";
-import OrderCard from "./OrderCard";
 
 type Props = {
   page: number;

@@ -1,8 +1,8 @@
-import CartItem from "@/components/Cart/ui/CartItem";
-import type { CartItemType } from "@/lib/cart/cart-types";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import CartItem from "@/components/Cart/ui/CartItem";
+import type { CartItemType } from "@/lib/cart/cart-types";
 
 const removeItem = vi.fn();
 const increaseRentDays = vi.fn();

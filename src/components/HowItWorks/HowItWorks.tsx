@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight,
   CalendarDays,
@@ -6,6 +5,7 @@ import {
   ShoppingBag,
   Wrench,
 } from "lucide-react";
+import Link from "next/link";
 
 const steps = [
   {

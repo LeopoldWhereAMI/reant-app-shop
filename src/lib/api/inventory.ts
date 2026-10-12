@@ -1,4 +1,4 @@
-import { InventoryItem } from "@/types/inventory";
+import type { InventoryItem } from "@/types/inventory";
 
 function getApiUrl(): string {
   const url = process.env.RENT_APP_API_URL;

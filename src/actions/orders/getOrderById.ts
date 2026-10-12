@@ -1,8 +1,8 @@
 "use server";
 
+import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import prisma from "@/lib/db/prisma";
-import { headers } from "next/headers";
 
 export const getOrderById = async (orderId: string) => {
   const session = await auth.api.getSession({ headers: await headers() });

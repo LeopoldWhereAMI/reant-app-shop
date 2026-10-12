@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import Link from "next/link";
 import { UserMenu } from "../auth/UserMenu";
 import CartBadge from "../Cart/ui/CartBadge";
 

@@ -1,8 +1,8 @@
-import CartSummary from "@/components/Cart/ui/CartSummary";
-import type { CartItemType } from "@/lib/cart/cart-types";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import CartSummary from "@/components/Cart/ui/CartSummary";
+import type { CartItemType } from "@/lib/cart/cart-types";
 
 const requireAuth = vi.fn(() => true);
 let isAuthLoading = false;
@@ -74,7 +74,7 @@ const cartItems: CartItemType[] = [
   { id: "2", name: "перфоратор", daily_price: 500, rentDays: 2 },
 ];
 
-let cart: CartItemType[] = [];
+const cart: CartItemType[] = [];
 
 describe("CartSummary", () => {
   beforeEach(() => {

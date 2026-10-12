@@ -1,13 +1,13 @@
 "use client";
 
-import useCartStore from "@/lib/cart/cart-store";
-import CartSummary from "./CartSummary";
 import { useState } from "react";
+import Loader from "@/components/Feedback/Loader";
+import useCartStore from "@/lib/cart/cart-store";
 import { useCartHydration } from "@/lib/cart/useCartHydration";
 import CartEmpty from "./CartEmpty";
 import CartItem from "./CartItem";
 import CartSuccess from "./CartSuccess";
-import Loader from "@/components/Feedback/Loader";
+import CartSummary from "./CartSummary";
 
 export default function CartList() {
   const [orderCreated, setOrderCreated] = useState(false);

@@ -1,9 +1,9 @@
 "use client";
 
 import type { InventoryItem } from "@/types/inventory";
-import { ToolCard } from "./ToolCard";
-import CatalogPagination from "./CatalogPagination";
 import usePagination from "../hooks/usePagination";
+import CatalogPagination from "./CatalogPagination";
+import { ToolCard } from "./ToolCard";
 
 type Props = {
   items: InventoryItem[];

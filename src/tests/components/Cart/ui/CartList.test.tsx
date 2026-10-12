@@ -1,9 +1,9 @@
-import CartList from "@/components/Cart/ui/CartList";
-import type { CartItemType } from "@/lib/cart/cart-types";
-import { useCartHydration } from "@/lib/cart/useCartHydration";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import CartList from "@/components/Cart/ui/CartList";
+import type { CartItemType } from "@/lib/cart/cart-types";
+import { useCartHydration } from "@/lib/cart/useCartHydration";
 
 vi.mock("@/lib/cart/useCartHydration", () => ({
   useCartHydration: vi.fn(),
@@ -33,7 +33,9 @@ vi.mock("@/components/Cart/ui/CartSummary", () => ({
   }) => (
     <>
       <div>Итого</div>
-      <button onClick={() => setOrderCreated(true)}>Создать заказ</button>
+      <button type="button" onClick={() => setOrderCreated(true)}>
+        Создать заказ
+      </button>
     </>
   ),
 }));

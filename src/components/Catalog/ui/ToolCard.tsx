@@ -1,7 +1,7 @@
+import Image from "next/image";
+import Link from "next/link";
 import type { InventoryItem } from "@/types/inventory";
 import AddToCartButton from "./AddToCartButton";
-import Link from "next/link";
-import Image from "next/image";
 
 type ToolCardProps = { item: InventoryItem };
 

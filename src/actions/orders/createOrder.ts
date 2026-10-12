@@ -1,9 +1,9 @@
 "use server";
 
-import { auth } from "@/lib/auth/auth";
-import { getInventoryItem } from "@/lib/api/inventory";
-import prisma from "@/lib/db/prisma";
 import { headers } from "next/headers";
+import { getInventoryItem } from "@/lib/api/inventory";
+import { auth } from "@/lib/auth/auth";
+import prisma from "@/lib/db/prisma";
 
 type CartItemsFromClient = {
   id: string;

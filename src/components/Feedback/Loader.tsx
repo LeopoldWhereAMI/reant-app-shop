@@ -1,5 +1,5 @@
 import { LoaderCircle } from "lucide-react";
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export default function Loader({ children }: { children: ReactNode }) {
   return (

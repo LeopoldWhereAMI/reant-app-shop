@@ -1,8 +1,8 @@
-import useCartAuth from "@/components/Cart/hooks/useCartAuth";
-import { authClient } from "@/lib/auth/auth-client";
 import { renderHook } from "@testing-library/react";
 import { useRouter } from "next/navigation";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import useCartAuth from "@/components/Cart/hooks/useCartAuth";
+import { authClient } from "@/lib/auth/auth-client";
 
 const push = vi.fn();
 
