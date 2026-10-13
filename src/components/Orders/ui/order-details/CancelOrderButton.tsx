@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { cancelOrder } from "@/actions/orders/cancelOrder";
 import ErrorMessage from "@/components/Feedback/ErrorMessage";
 import { Button } from "@/components/ui/button";
@@ -19,37 +19,37 @@ export default function CancelOrderButton({
   itemNames,
   totalPrice,
 }: Props) {
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { dialogRef, handleClose, handleOpen } = useModal();
 
   const router = useRouter();
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setError(null);
+    setIsPending(true);
 
-    startTransition(async () => {
-      try {
-        const result = await cancelOrder(orderId);
+    try {
+      const result = await cancelOrder(orderId);
 
-        if (!result.success) {
-          const messages = {
-            UNAUTHORIZED: "Войдите в аккаунт, чтобы отменить заказ.",
-            ORDER_NOT_CANCELLABLE:
-              "Заказ не найден или его уже нельзя отменить.",
-            INTERNAL_ERROR: "Не удалось отменить заказ. Попробуйте позже.",
-          };
+      if (!result.success) {
+        const messages = {
+          UNAUTHORIZED: "Войдите в аккаунт, чтобы отменить заказ.",
+          ORDER_NOT_CANCELLABLE: "Заказ не найден или его уже нельзя отменить.",
+          INTERNAL_ERROR: "Не удалось отменить заказ. Попробуйте позже.",
+        };
 
-          setError(messages[result.code]);
-          return;
-        }
-
-        router.refresh();
-      } catch (error) {
-        console.error("Ошибка отмены заказа:", error);
-        setError("Не удалось отменить заказ. Попробуйте позже.");
+        setError(messages[result.code]);
+        return;
       }
-    });
+
+      router.refresh();
+    } catch (error) {
+      console.error("Ошибка отмены заказа:", error);
+      setError("Не удалось отменить заказ. Попробуйте позже.");
+    } finally {
+      setIsPending(false);
+    }
   };
 
   return (
